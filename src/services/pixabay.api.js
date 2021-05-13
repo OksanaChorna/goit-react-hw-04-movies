@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://pixabay.com/api';
+const BASE_URL =
+  'https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key';
 const API_KEY = '20667195-d8cc0b45a3716479e33d72c4b';
 
 axios.defaults.baseURL = BASE_URL;
