@@ -1,14 +1,17 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class MovieDetailsPage extends Component {
   state = {
+    movies: [],
     poster_path: '',
     title: null,
     release_date: null,
     vote_average: null,
     overview: null,
     genres: [],
+    casts: [],
   };
 
   async componentDidMount() {
@@ -19,11 +22,30 @@ class MovieDetailsPage extends Component {
     console.log(response.data);
 
     this.setState({ ...response.data });
+
+    const castsGetApi = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=17f34524669c2658ba6f6a8fb0e96e0c`,
+    );
+    console.log(castsGetApi.data.cast);
+    this.setState({ casts: castsGetApi.data.cast });
+    // /credits
+    const reviewsGetApi = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=17f34524669c2658ba6f6a8fb0e96e0c`,
+    );
+    console.log(reviewsGetApi.data);
   }
 
   render() {
-    const { title, release_date, vote_average, overview, genres } = this.state;
+    const {
+      title,
+      release_date,
+      vote_average,
+      overview,
+      genres,
+      casts,
+    } = this.state;
     const fullYear = new Date(release_date).getFullYear();
+    console.log(casts);
     return (
       <>
         <h1>
@@ -37,12 +59,13 @@ class MovieDetailsPage extends Component {
         <img src="" alt="" />
 
         {/* <ul>
-          {this.state.movies.map(movie => (
-            <li key={movie.id}>
-              <Link to={}>
-                {' '}
-                {movie.title}
-                {movie.original_name}
+          {this.state.casts.map(cast => (
+            <li key={cast.cast_id}>
+              <Link
+                to={`${this.props.match.url}movies/${this.props.movieId}/cast`}
+              >
+                {cast.name}
+                Character: {cast.character}
               </Link>
             </li>
           ))}
