@@ -1,15 +1,13 @@
 import axios from 'axios';
 
-const BASE_URL =
-  'https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key';
-const API_KEY = '20667195-d8cc0b45a3716479e33d72c4b';
+const BASE_URL = 'https://api.themoviedb.org/3/';
+// movie/550?api_key=17f34524669c2658ba6f6a8fb0e96e0c
+// 'https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key';
+const API_KEY = '17f34524669c2658ba6f6a8fb0e96e0c';
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.params = {
   key: API_KEY,
-  image_type: 'photo',
-  orientation: 'horizontal',
-  per_page: 12,
 };
 
 const fetchPixabayImgs = async ({ q, page }) => {

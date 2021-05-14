@@ -1,16 +1,16 @@
 import React from 'react';
 import { Route, Switch, NavLink } from 'react-router-dom';
 import Container from './components/Container';
-import MoviesPage from './components/Container/MoviesPage/MoviesPage';
-import HomePage from './components/HomePage';
-import MovieDetailsPage from './components/MovieDetailsPage/MovieDetailsPage';
+import MoviesPage from './pages/MoviesPage/MoviesPage';
+import HomePage from './pages/HomePage';
+import MovieDetailsPage from './pages/MovieDetailsPage/MovieDetailsPage';
 
 // import pixabayApi from './services/pixabay.api';
 // import PropTypes from 'prop-types';
 
 const App = () => (
   <Container>
-    <ul>
+    <ul className="List">
       <li>
         <NavLink exact className="Link" activeClassName="ActiveLink" to="/">
           Home
@@ -24,8 +24,9 @@ const App = () => (
     </ul>
     <Switch>
       <Route exact path="/" component={HomePage} />
-      <Route path="/movies" component={MoviesPage} />
       <Route path="/movies/:movieId" component={MovieDetailsPage} />
+      <Route path="/movies" component={MoviesPage} />
+
       <Route component={HomePage} />
     </Switch>
   </Container>
