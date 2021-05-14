@@ -26,13 +26,13 @@ class MovieDetailsPage extends Component {
     const fullYear = new Date(release_date).getFullYear();
     return (
       <>
-        <h2>
+        <h1>
           {title} ({fullYear})
-        </h2>
-        <p>User score: {vote_average}%</p>
-        <h3>Overview</h3>
+        </h1>
+        <p>User score: {vote_average * 10}%</p>
+        <h2>Overview</h2>
         <p>{overview}</p>
-        <h3>Genres</h3>
+        <h2>Genres</h2>
         <p>{genres.flatMap(genre => genre.name).join(' ')}</p>
         <img src="" alt="" />
 

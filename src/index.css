@@ -28,7 +28,11 @@ img {
 }
 
 .List {
+  display: flex;
+  margin: 0;
+  padding: 10px 0;
   list-style: none;
+  border-bottom: 2px solid #21212162;
 }
 
 button {
@@ -40,7 +44,7 @@ button {
   text-decoration: none;
   padding: 12px;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 26px;
   color: #2a363b;
 }
 
@@ -49,6 +53,10 @@ button {
   text-decoration: none;
   padding: 12px;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 26px;
   color: #2196f3;
+}
+
+header {
+  display: flex;
 }
