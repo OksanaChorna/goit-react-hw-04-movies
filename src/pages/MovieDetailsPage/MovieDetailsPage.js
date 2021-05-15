@@ -43,11 +43,18 @@ class MovieDetailsPage extends Component {
       overview,
       genres,
       casts,
+      poster_path,
     } = this.state;
+
     const fullYear = new Date(release_date).getFullYear();
     console.log(casts);
+
     return (
       <>
+        <img
+          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+          alt="poster img"
+        />
         <h1>
           {title} ({fullYear})
         </h1>
@@ -56,7 +63,6 @@ class MovieDetailsPage extends Component {
         <p>{overview}</p>
         <h2>Genres</h2>
         <p>{genres.flatMap(genre => genre.name).join(' ')}</p>
-        <img src="" alt="" />
 
         {/* <ul>
           {this.state.casts.map(cast => (
