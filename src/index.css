@@ -23,7 +23,7 @@ body {
 
 img {
   display: block;
-  max-width: 100%;
+  /* max-width: 100%; */
   height: auto;
 }
 
@@ -138,4 +138,14 @@ header {
 .SearchForm-input::placeholder {
   font: inherit;
   font-size: 18px;
+}
+
+section {
+  display: flex;
+}
+
+.poster {
+  display: block;
+  width: 500px;
+  margin-right: 20px;
 }
