@@ -30,7 +30,6 @@ class MoviesPage extends Component {
   };
 
   render() {
-    console.log(this.props.match.url);
     return (
       <>
         <section className="Searchbar">

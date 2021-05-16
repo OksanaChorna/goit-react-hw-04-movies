@@ -12,7 +12,6 @@ class CastComponent extends Component {
     const castsGetApi = await axios.get(
       `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=17f34524669c2658ba6f6a8fb0e96e0c`,
     );
-    console.log('cast', castsGetApi.data.cast);
     this.setState({ casts: castsGetApi.data.cast });
   }
   render() {

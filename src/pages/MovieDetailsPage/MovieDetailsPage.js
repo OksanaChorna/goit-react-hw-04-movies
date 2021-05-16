@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
 import CastComponent from '../../components/Cast/Cast';
 import Container from '../../components/Container';
+import ReviewsComponent from '../../components/Reviews/Reviews';
 
 class MovieDetailsPage extends Component {
   state = {
@@ -13,7 +14,6 @@ class MovieDetailsPage extends Component {
     vote_average: null,
     overview: null,
     genres: [],
-    // casts: [],
   };
 
   async componentDidMount() {
@@ -21,21 +21,14 @@ class MovieDetailsPage extends Component {
     const response = await axios.get(
       `https://api.themoviedb.org/3/movie/${movieId}?api_key=17f34524669c2658ba6f6a8fb0e96e0c`,
     );
-    console.log(response.data);
 
     this.setState({ ...response.data });
-
-    // const castsGetApi = await axios.get(
-    //   `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=17f34524669c2658ba6f6a8fb0e96e0c`,
-    // );
-    // console.log('cast', castsGetApi.data.cast);
-    // this.setState({ casts: castsGetApi.data.cast });
 
     // /credits
     // const reviewsGetApi = await axios.get(
     //   `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=17f34524669c2658ba6f6a8fb0e96e0c`,
     // );
-    // console.log(reviewsGetApi.data);
+    // console.log(reviewsGetApi.data.results);
   }
 
   render() {
@@ -85,7 +78,9 @@ class MovieDetailsPage extends Component {
         </section>
         <Container>
           <Link to={`${match.url}/cast`}>Cast</Link>
+          <Link to={`${match.url}/reviews`}>Reviews</Link>
           <Route path={`${match.path}/cast`} component={CastComponent} />
+          <Route path={`${match.path}/reviews`} component={ReviewsComponent} />
         </Container>
       </>
     );
