@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import Container from '../../components/Container';
 
 class MoviesPage extends Component {
   state = {
@@ -33,21 +34,23 @@ class MoviesPage extends Component {
     return (
       <>
         <section className="Searchbar">
-          <form className="SearchForm" onSubmit={this.handleSubmit}>
-            <button type="submit" className="SearchForm-button">
-              <span className="SearchForm-button-label">Search</span>
-            </button>
+          <Container>
+            <form className="SearchForm" onSubmit={this.handleSubmit}>
+              <button type="submit" className="SearchForm-button">
+                <span className="SearchForm-button-label">Search</span>
+              </button>
 
-            <input
-              className="SearchForm-input"
-              type="text"
-              autoComplete="off"
-              autoFocus
-              placeholder="Search movies"
-              value={this.state.query}
-              onChange={this.handleChange}
-            />
-          </form>
+              <input
+                className="SearchForm-input"
+                type="text"
+                autoComplete="off"
+                autoFocus
+                placeholder="Search movies"
+                value={this.state.query}
+                onChange={this.handleChange}
+              />
+            </form>
+          </Container>
         </section>
       </>
     );

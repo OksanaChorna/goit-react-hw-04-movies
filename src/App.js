@@ -9,19 +9,21 @@ import MovieDetailsPage from './pages/MovieDetailsPage/MovieDetailsPage';
 // import PropTypes from 'prop-types';
 
 const App = () => (
-  <Container>
-    <ul className="List">
-      <li>
-        <NavLink exact className="Link" activeClassName="ActiveLink" to="/">
-          Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink className="Link" activeClassName="ActiveLink" to="/movies">
-          Movies
-        </NavLink>
-      </li>
-    </ul>
+  <>
+    <Container>
+      <ul className="List">
+        <li>
+          <NavLink exact className="Link" activeClassName="ActiveLink" to="/">
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink className="Link" activeClassName="ActiveLink" to="/movies">
+            Movies
+          </NavLink>
+        </li>
+      </ul>
+    </Container>
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route path="/movies/:movieId" component={MovieDetailsPage} />
@@ -29,7 +31,7 @@ const App = () => (
 
       <Route component={HomePage} />
     </Switch>
-  </Container>
+  </>
 );
 
 export default App;

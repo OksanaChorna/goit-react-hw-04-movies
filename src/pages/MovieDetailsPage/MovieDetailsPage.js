@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import CastComponent from '../../components/Cast/Cast';
+import Container from '../../components/Container';
 
 class MovieDetailsPage extends Component {
   state = {
@@ -12,7 +13,7 @@ class MovieDetailsPage extends Component {
     vote_average: null,
     overview: null,
     genres: [],
-    casts: [],
+    // casts: [],
   };
 
   async componentDidMount() {
@@ -24,11 +25,11 @@ class MovieDetailsPage extends Component {
 
     this.setState({ ...response.data });
 
-    const castsGetApi = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=17f34524669c2658ba6f6a8fb0e96e0c`,
-    );
-    console.log('cast', castsGetApi.data.cast);
-    this.setState({ casts: castsGetApi.data.cast });
+    // const castsGetApi = await axios.get(
+    //   `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=17f34524669c2658ba6f6a8fb0e96e0c`,
+    // );
+    // console.log('cast', castsGetApi.data.cast);
+    // this.setState({ casts: castsGetApi.data.cast });
 
     // /credits
     // const reviewsGetApi = await axios.get(
@@ -45,52 +46,47 @@ class MovieDetailsPage extends Component {
       overview,
       genres,
       poster_path,
-      casts,
+      // casts,
     } = this.state;
 
     const fullYear = new Date(release_date).getFullYear();
-    console.log(`${poster_path}`);
+    const { match } = this.props;
+    console.log(match.path);
+    console.log(match.url);
 
     return (
       <>
         <section>
-          <div className="poster">
-            {poster_path ? (
-              <img
-                src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-                alt="poster img"
-              />
-            ) : (
-              <img
-                src="https://gravatar.com/avatar/070bfd05635ca2f82dda904ac6c13e21?d=https%3A%2F%2Fassets.codepen.io%2Finternal%2Favatars%2Fusers%2Fdefault.png&fit=crop&format=auto&height=256&version=0&width=256"
-                alt="poster img"
-              />
-            )}
-          </div>
-          <div>
-            <h1>
-              {title} ({fullYear})
-            </h1>
-            <p>User score: {vote_average * 10}%</p>
-            <h2>Overview</h2>
-            <p>{overview}</p>
-            <h2>Genres</h2>
-            <p>{genres.flatMap(genre => genre.name).join(' ')}</p>
-          </div>
+          <Container>
+            <div className="poster">
+              {poster_path ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                  alt="poster img"
+                />
+              ) : (
+                <img
+                  src="https://gravatar.com/avatar/070bfd05635ca2f82dda904ac6c13e21?d=https%3A%2F%2Fassets.codepen.io%2Finternal%2Favatars%2Fusers%2Fdefault.png&fit=crop&format=auto&height=256&version=0&width=256"
+                  alt="poster img"
+                />
+              )}
+            </div>
+            <div>
+              <h1>
+                {title} ({fullYear})
+              </h1>
+              <p>User score: {vote_average * 10}%</p>
+              <h2>Overview</h2>
+              <p>{overview}</p>
+              <h2>Genres</h2>
+              <p>{genres.flatMap(genre => genre.name).join(' ')}</p>
+            </div>
+          </Container>
         </section>
-        <ul>
-          {casts.map(cast => (
-            <li key={cast.cast_id}>
-              <img
-                src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
-                alt="cast img"
-              />
-              <p>{cast.name}</p>
-              <p>Character: {cast.character}</p>
-            </li>
-          ))}
-        </ul>
-        {/* <CastComponent /> */}
+        <Container>
+          <Link to={`${match.url}/cast`}>Cast</Link>
+          <Route path={`${match.path}/cast`} component={CastComponent} />
+        </Container>
       </>
     );
   }

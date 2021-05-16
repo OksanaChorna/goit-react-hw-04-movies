@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Container from '../../components/Container';
 
 class HomePage extends Component {
   state = {
@@ -19,7 +20,7 @@ class HomePage extends Component {
   render() {
     console.log(this.props.match.url);
     return (
-      <>
+      <Container>
         <h2>Trending movies</h2>
         <ul>
           {this.state.movies.map(movie => (
@@ -31,7 +32,7 @@ class HomePage extends Component {
             </li>
           ))}
         </ul>
-      </>
+      </Container>
     );
   }
 }
