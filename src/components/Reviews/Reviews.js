@@ -21,12 +21,16 @@ class ReviewsComponent extends Component {
     return (
       <Container>
         <ul>
-          {reviews.map(review => (
-            <li key={review.id}>
-              <h3>Author {review.author}</h3>
-              <p>{review.content}</p>
-            </li>
-          ))}
+          {reviews.length ? (
+            reviews.map(review => (
+              <li key={review.id}>
+                <h3>Author {review.author}</h3>
+                <p>{review.content}</p>
+              </li>
+            ))
+          ) : (
+            <h4>We don't have any reviews for this movies</h4>
+          )}
         </ul>
       </Container>
     );

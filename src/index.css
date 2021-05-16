@@ -32,7 +32,6 @@ img {
   margin: 0;
   padding: 10px 0;
   list-style: none;
-  border-bottom: 2px solid #21212162;
 }
 
 button {
@@ -59,6 +58,7 @@ button {
 
 header {
   display: flex;
+  border-bottom: 2px solid #21212162;
 }
 
 .Searchbar {
@@ -140,12 +140,33 @@ header {
   font-size: 18px;
 }
 
-section {
+.section-film {
+  max-width: 1200px;
   display: flex;
+  padding: 20px;
 }
 
 .poster {
   display: block;
   width: 500px;
+  margin-left: 20px;
   margin-right: 20px;
+}
+
+.film-info-det {
+  border-top: 2px solid grey;
+}
+.film-info-list {
+  border-bottom: 2px solid grey;
+}
+
+.rew-link {
+  display: inline-block;
+  padding: 12px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.cast img {
+  width: 250px;
 }

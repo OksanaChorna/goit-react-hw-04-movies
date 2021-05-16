@@ -10,20 +10,22 @@ import MovieDetailsPage from './pages/MovieDetailsPage/MovieDetailsPage';
 
 const App = () => (
   <>
-    <Container>
-      <ul className="List">
-        <li>
-          <NavLink exact className="Link" activeClassName="ActiveLink" to="/">
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink className="Link" activeClassName="ActiveLink" to="/movies">
-            Movies
-          </NavLink>
-        </li>
-      </ul>
-    </Container>
+    <header>
+      <Container>
+        <ul className="List">
+          <li>
+            <NavLink exact className="Link" activeClassName="ActiveLink" to="/">
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="Link" activeClassName="ActiveLink" to="/movies">
+              Movies
+            </NavLink>
+          </li>
+        </ul>
+      </Container>
+    </header>
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route path="/movies/:movieId" component={MovieDetailsPage} />

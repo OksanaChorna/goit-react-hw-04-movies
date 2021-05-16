@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 import CastComponent from '../../components/Cast/Cast';
 import Container from '../../components/Container';
 import ReviewsComponent from '../../components/Reviews/Reviews';
@@ -23,12 +23,6 @@ class MovieDetailsPage extends Component {
     );
 
     this.setState({ ...response.data });
-
-    // /credits
-    // const reviewsGetApi = await axios.get(
-    //   `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=17f34524669c2658ba6f6a8fb0e96e0c`,
-    // );
-    // console.log(reviewsGetApi.data.results);
   }
 
   render() {
@@ -39,49 +33,60 @@ class MovieDetailsPage extends Component {
       overview,
       genres,
       poster_path,
-      // casts,
     } = this.state;
 
     const fullYear = new Date(release_date).getFullYear();
     const { match } = this.props;
-    console.log(match.path);
-    console.log(match.url);
 
     return (
       <>
-        <section>
+        <section className="section-film">
+          <div className="poster">
+            {poster_path ? (
+              <img
+                src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                alt="poster img"
+              />
+            ) : (
+              <img
+                src="https://gravatar.com/avatar/070bfd05635ca2f82dda904ac6c13e21?d=https%3A%2F%2Fassets.codepen.io%2Finternal%2Favatars%2Fusers%2Fdefault.png&fit=crop&format=auto&height=256&version=0&width=256"
+                alt="poster img"
+              />
+            )}
+          </div>
+          <div>
+            <h1>
+              {title} ({fullYear})
+            </h1>
+            <p>User score: {vote_average * 10}%</p>
+            <h2>Overview</h2>
+            <p>{overview}</p>
+            <h2>Genres</h2>
+            <p>{genres.flatMap(genre => genre.name).join(' ')}</p>
+          </div>
+        </section>
+        <section className="film-info-det">
+          <p>Additional information</p>
+          <ul className="film-info-list">
+            <li>
+              <NavLink to={`${match.url}/cast`} className="rew-link">
+                Cast
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={`${match.url}/reviews`} className="rew-link">
+                Reviews
+              </NavLink>
+            </li>
+          </ul>
           <Container>
-            <div className="poster">
-              {poster_path ? (
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-                  alt="poster img"
-                />
-              ) : (
-                <img
-                  src="https://gravatar.com/avatar/070bfd05635ca2f82dda904ac6c13e21?d=https%3A%2F%2Fassets.codepen.io%2Finternal%2Favatars%2Fusers%2Fdefault.png&fit=crop&format=auto&height=256&version=0&width=256"
-                  alt="poster img"
-                />
-              )}
-            </div>
-            <div>
-              <h1>
-                {title} ({fullYear})
-              </h1>
-              <p>User score: {vote_average * 10}%</p>
-              <h2>Overview</h2>
-              <p>{overview}</p>
-              <h2>Genres</h2>
-              <p>{genres.flatMap(genre => genre.name).join(' ')}</p>
-            </div>
+            <Route path={`${match.path}/cast`} component={CastComponent} />
+            <Route
+              path={`${match.path}/reviews`}
+              component={ReviewsComponent}
+            />
           </Container>
         </section>
-        <Container>
-          <Link to={`${match.url}/cast`}>Cast</Link>
-          <Link to={`${match.url}/reviews`}>Reviews</Link>
-          <Route path={`${match.path}/cast`} component={CastComponent} />
-          <Route path={`${match.path}/reviews`} component={ReviewsComponent} />
-        </Container>
       </>
     );
   }

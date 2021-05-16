@@ -19,7 +19,7 @@ class CastComponent extends Component {
 
     return (
       <Container>
-        <ul>
+        <ul className="cast">
           {casts.map(cast => (
             <li key={cast.cast_id}>
               {cast.profile_path ? (
@@ -33,7 +33,7 @@ class CastComponent extends Component {
                   alt="cast img"
                 />
               )}
-              <p>{cast.name}</p>
+              <h3>{cast.name}</h3>
               <p>Character: {cast.character}</p>
             </li>
           ))}
