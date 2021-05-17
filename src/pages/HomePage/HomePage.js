@@ -18,7 +18,6 @@ class HomePage extends Component {
   }
 
   render() {
-    console.log(this.props.match.path);
     return (
       <Container>
         <h2>Trending movies</h2>

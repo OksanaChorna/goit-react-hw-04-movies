@@ -4,6 +4,7 @@ import { NavLink, Route } from 'react-router-dom';
 import CastComponent from '../../components/Cast/Cast';
 import Container from '../../components/Container';
 import ReviewsComponent from '../../components/Reviews/Reviews';
+import routes from '../../routes/routes';
 
 class MovieDetailsPage extends Component {
   state = {
@@ -14,7 +15,7 @@ class MovieDetailsPage extends Component {
     vote_average: null,
     overview: null,
     genres: [],
-    cast: [],
+    // cast: [],
   };
 
   async componentDidMount() {
@@ -25,6 +26,14 @@ class MovieDetailsPage extends Component {
 
     this.setState({ ...response.data });
   }
+
+  handleGoBack = () => {
+    const { history, location } = this.props;
+    if (location.state && location.state.from) {
+      return history.push(location.state.from);
+    }
+    history.push(routes.home);
+  };
 
   render() {
     const {
@@ -42,7 +51,7 @@ class MovieDetailsPage extends Component {
 
     return (
       <>
-        <button type="button" className="backBtn">
+        <button type="button" className="backBtn" onClick={this.handleGoBack}>
           &#8592; Go back
         </button>
 
