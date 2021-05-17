@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Container from '../../components/Container';
+import MoviesList from '../../components/MoviesList/MoviesList';
 
 class MoviesPage extends Component {
   state = {
@@ -46,16 +45,7 @@ class MoviesPage extends Component {
             />
           </form>
           <div>
-            <ul>
-              {this.state.movies.map(movie => (
-                <li key={movie.id}>
-                  <Link to={`${this.props.match.url}/${movie.id}`}>
-                    {movie.title}
-                    {movie.original_name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <MoviesList movies={this.state.movies} />
           </div>
         </section>
       </>

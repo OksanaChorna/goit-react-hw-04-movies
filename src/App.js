@@ -1,35 +1,21 @@
 import React from 'react';
-import { Route, Switch, NavLink } from 'react-router-dom';
-import Container from './components/Container';
+import { Route, Switch } from 'react-router-dom';
 import MoviesPage from './pages/MoviesPage/MoviesPage';
 import HomePage from './pages/HomePage';
 import MovieDetailsPage from './pages/MovieDetailsPage/MovieDetailsPage';
+import routes from './routs/routes';
+import AppBar from './components/AppBar/AppBar';
 
 // import pixabayApi from './services/pixabay.api';
 // import PropTypes from 'prop-types';
 
 const App = () => (
   <>
-    <header>
-      <Container>
-        <ul className="List">
-          <li>
-            <NavLink exact className="Link" activeClassName="ActiveLink" to="/">
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="Link" activeClassName="ActiveLink" to="/movies">
-              Movies
-            </NavLink>
-          </li>
-        </ul>
-      </Container>
-    </header>
+    <AppBar />
     <Switch>
-      <Route exact path="/" component={HomePage} />
-      <Route path="/movies/:movieId" component={MovieDetailsPage} />
-      <Route path="/movies" component={MoviesPage} />
+      <Route exact path={routes.home} component={HomePage} />
+      <Route path={routes.movieDetails} component={MovieDetailsPage} />
+      <Route path={routes.movies} component={MoviesPage} />
 
       <Route component={HomePage} />
     </Switch>

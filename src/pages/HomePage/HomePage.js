@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+// import CastComponent from '../../components/Cast/Cast';
 import Container from '../../components/Container';
 
 class HomePage extends Component {
@@ -17,6 +18,7 @@ class HomePage extends Component {
   }
 
   render() {
+    console.log(this.props.match.path);
     return (
       <Container>
         <h2>Trending movies</h2>
@@ -30,6 +32,19 @@ class HomePage extends Component {
             </li>
           ))}
         </ul>
+        {/* <Route
+          path={`${this.props.match.path}movies/:movieId/cast`}
+          render={props => {
+            console.log(props);
+            const movieId = Number(this.props.match.params.movieId);
+            console.log(movieId);
+            const costMovie = this.state.movies.find(
+              ({ id }) => id === movieId,
+            );
+            console.log(costMovie);
+            // return costMovie && <CastComponent {...props} cast={cast} />;
+          }}
+        /> */}
       </Container>
     );
   }

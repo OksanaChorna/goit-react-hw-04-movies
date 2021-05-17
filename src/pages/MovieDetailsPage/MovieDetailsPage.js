@@ -14,6 +14,7 @@ class MovieDetailsPage extends Component {
     vote_average: null,
     overview: null,
     genres: [],
+    cast: [],
   };
 
   async componentDidMount() {
@@ -33,6 +34,7 @@ class MovieDetailsPage extends Component {
       overview,
       genres,
       poster_path,
+      // cast,
     } = this.state;
 
     const fullYear = new Date(release_date).getFullYear();
@@ -81,6 +83,15 @@ class MovieDetailsPage extends Component {
           </ul>
           <Container>
             <Route path={`${match.path}/cast`} component={CastComponent} />
+            {/* <Route
+              path={`${match.path}/cast`}
+              render={props => {
+                console.log(props);
+                const movieId = Number(match.params.movieId);
+                console.log(movieId);
+                return <CastComponent {...props} cast={cast} />;
+              }}
+            /> */}
             <Route
               path={`${match.path}/reviews`}
               component={ReviewsComponent}
