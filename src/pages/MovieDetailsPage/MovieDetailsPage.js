@@ -42,6 +42,10 @@ class MovieDetailsPage extends Component {
 
     return (
       <>
+        <button type="button" className="backBtn">
+          &#8592; Go back
+        </button>
+
         <section className="section-film">
           <div className="poster">
             {poster_path ? (

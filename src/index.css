@@ -58,7 +58,12 @@ button {
 
 header {
   display: flex;
+  background-color: aquamarine;
   border-bottom: 2px solid #21212162;
+}
+
+body {
+  background-color: azure;
 }
 
 .Searchbar {
@@ -166,4 +171,22 @@ header {
 
 .cast img {
   width: 250px;
+}
+
+.backBtn {
+  width: 100px;
+  height: 30px;
+  padding: 5px;
+  text-align: center;
+  margin-top: 10px;
+  margin-left: 40px;
+  background-color: lightskyblue;
+}
+
+.backBtn:hover {
+  background-color: lightgreen;
+}
+
+.film-info-det p {
+  margin-left: 40px;
 }
