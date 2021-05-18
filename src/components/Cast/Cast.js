@@ -1,5 +1,6 @@
-import axios from 'axios';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import moviesApi from '../../services/moviesApi';
 import Container from '../Container';
 
 class CastComponent extends Component {
@@ -8,11 +9,17 @@ class CastComponent extends Component {
   };
 
   async componentDidMount() {
-    const { movieId } = this.props.match.params;
-    const castsGetApi = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=17f34524669c2658ba6f6a8fb0e96e0c`,
-    );
-    this.setState({ casts: castsGetApi.data.cast });
+    const movieId = this.props.match.params.movieId;
+    moviesApi
+      .fetchMovieCast(movieId)
+      .then(({ cast }) => {
+        if (cast.length !== 0) {
+          this.setState({
+            casts: [...cast],
+          });
+        }
+      })
+      .catch(error => console.log(error));
   }
   render() {
     const { casts } = this.state;
@@ -46,5 +53,9 @@ class CastComponent extends Component {
     );
   }
 }
+
+CastComponent.propTypes = {
+  movieId: PropTypes.string,
+};
 
 export default CastComponent;

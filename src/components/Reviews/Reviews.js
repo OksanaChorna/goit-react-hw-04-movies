@@ -1,19 +1,18 @@
-import axios from 'axios';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Container from '../Container';
+import moviesApi from '../../services/moviesApi';
 
 class ReviewsComponent extends Component {
   state = {
     reviews: [],
   };
 
-  async componentDidMount() {
-    const { movieId } = this.props.match.params;
-    const reviewsGetApi = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=17f34524669c2658ba6f6a8fb0e96e0c`,
-    );
-    console.log('reviews', reviewsGetApi.data.results);
-    this.setState({ reviews: reviewsGetApi.data.results });
+  componentDidMount() {
+    const movieId = this.props.match.params.movieId;
+    moviesApi.fetchMovieReviews(movieId).then(({ results }) => {
+      this.setState({ reviews: [...results] });
+    });
   }
   render() {
     const { reviews } = this.state;
@@ -36,5 +35,9 @@ class ReviewsComponent extends Component {
     );
   }
 }
+
+ReviewsComponent.propTypes = {
+  movieId: PropTypes.string,
+};
 
 export default ReviewsComponent;

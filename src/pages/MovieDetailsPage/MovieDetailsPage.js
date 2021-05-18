@@ -1,30 +1,22 @@
-import axios from 'axios';
 import React, { Component } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import CastComponent from '../../components/Cast/Cast';
 import Container from '../../components/Container';
 import ReviewsComponent from '../../components/Reviews/Reviews';
 import routes from '../../routes/routes';
+import moviesApi from '../../services/moviesApi';
 
 class MovieDetailsPage extends Component {
   state = {
     movies: [],
-    poster_path: '',
-    title: null,
-    release_date: null,
-    vote_average: null,
-    overview: null,
     genres: [],
-    // cast: [],
   };
 
-  async componentDidMount() {
-    const { movieId } = this.props.match.params;
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=17f34524669c2658ba6f6a8fb0e96e0c`,
-    );
-
-    this.setState({ ...response.data });
+  componentDidMount() {
+    const movieId = this.props.match.params.movieId;
+    moviesApi
+      .fetchMovieDetails(movieId)
+      .then(data => this.setState({ ...data }));
   }
 
   handleGoBack = () => {
@@ -43,11 +35,10 @@ class MovieDetailsPage extends Component {
       overview,
       genres,
       poster_path,
-      // cast,
     } = this.state;
 
     const fullYear = new Date(release_date).getFullYear();
-    const { match } = this.props;
+    const { match, location } = this.props;
 
     return (
       <>
@@ -84,12 +75,24 @@ class MovieDetailsPage extends Component {
           <p>Additional information</p>
           <ul className="film-info-list">
             <li>
-              <NavLink to={`${match.url}/cast`} className="rew-link">
+              <NavLink
+                to={{
+                  pathname: `${match.url}/cast`,
+                  state: { ...location.state },
+                }}
+                className="rew-link"
+              >
                 Cast
               </NavLink>
             </li>
             <li>
-              <NavLink to={`${match.url}/reviews`} className="rew-link">
+              <NavLink
+                to={{
+                  pathname: `${match.url}/reviews`,
+                  state: { ...location.state },
+                }}
+                className="rew-link"
+              >
                 Reviews
               </NavLink>
             </li>
