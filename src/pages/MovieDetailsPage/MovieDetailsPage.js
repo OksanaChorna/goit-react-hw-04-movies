@@ -96,15 +96,6 @@ class MovieDetailsPage extends Component {
           </ul>
           <Container>
             <Route path={`${match.path}/cast`} component={CastComponent} />
-            {/* <Route
-              path={`${match.path}/cast`}
-              render={props => {
-                console.log(props);
-                const movieId = Number(match.params.movieId);
-                console.log(movieId);
-                return <CastComponent {...props} cast={cast} />;
-              }}
-            /> */}
             <Route
               path={`${match.path}/reviews`}
               component={ReviewsComponent}

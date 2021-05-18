@@ -1,56 +1,73 @@
-import axios from 'axios';
 import React, { Component } from 'react';
+import querystring from 'query-string';
 import MoviesList from '../../components/MoviesList/MoviesList';
+import Searchbar from '../../components/Search/Search';
+import moviesApi from '../../services/moviesApi';
 
 class MoviesPage extends Component {
   state = {
-    query: '',
+    searchQuery: '',
     movies: [],
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    const { query } = this.state;
-    const queryGetApi = axios
-      .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=17f34524669c2658ba6f6a8fb0e96e0c&query=${query}`,
-      )
-      .then(({ data }) => {
-        console.log(data);
+  componentDidMount() {
+    const { search, pathname } = this.props.location;
 
-        this.setState({ movies: data.results });
-        this.setState({ query: '' });
+    if (search && pathname) {
+      this.setState({
+        searchQuery: querystring.parse(search).query,
       });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.searchQuery !== this.state.searchQuery) {
+      this.fetchFilms();
+    }
+  }
+
+  changeQuery = query => {
+    const { history, location } = this.props;
+
+    this.setState({
+      searchQuery: query,
+      movies: [],
+    });
+
+    history.push({
+      ...location,
+      search: `query=${query}`,
+    });
   };
 
-  handleChange = event => {
-    this.setState({ query: event.currentTarget.value });
-  };
+  fetchFilms() {
+    const { searchQuery } = this.state;
+    const options = { searchQuery };
+
+    if (!searchQuery) {
+      return;
+    }
+
+    moviesApi
+      .fetchSearchMovies(options)
+      .then(({ results }) => {
+        if (results.length === 0) {
+          console.log(results.length);
+        }
+
+        this.setState({
+          movies: [...results],
+        });
+      })
+      .catch(error => error);
+  }
 
   render() {
     return (
-      <>
-        <section className="Searchbar">
-          <form className="SearchForm" onSubmit={this.handleSubmit}>
-            <button type="submit" className="SearchForm-button">
-              <span className="SearchForm-button-label">Search</span>
-            </button>
-
-            <input
-              className="SearchForm-input"
-              type="text"
-              autoComplete="off"
-              autoFocus
-              placeholder="Search movies"
-              value={this.state.query}
-              onChange={this.handleChange}
-            />
-          </form>
-          <div>
-            <MoviesList movies={this.state.movies} />
-          </div>
-        </section>
-      </>
+      <div>
+        <Searchbar onSubmit={this.changeQuery} />;
+        <MoviesList movies={this.state.movies} />
+      </div>
     );
   }
 }
