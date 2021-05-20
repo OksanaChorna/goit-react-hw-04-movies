@@ -8,22 +8,8 @@ axios.defaults.params = {
   api_key: API_KEY,
 };
 
-// const fetchTrendingMovies = () => {
-//   return axios
-//     .get('', { params: { movie, popular } })
-//     .then(({ data }) => data)
-//     .catch(error => error);
-// };
-
 const fetchTrendingMovies = () => {
-  return (
-    axios
-      .get(`/movie/popular`)
-      // .then(({ data }) => {
-      //   console.log(data);
-      // })
-      .catch(error => error)
-  );
+  return axios.get(`/movie/popular`).catch(error => error);
 };
 
 const fetchMovieDetails = movieId => {
