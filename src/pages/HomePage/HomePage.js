@@ -11,7 +11,7 @@ class HomePage extends Component {
   componentDidMount() {
     moviesApi
       .fetchTrendingMovies()
-      .then(({ results }) => this.setState({ movies: results }));
+      .then(({ data }) => this.setState({ movies: data.results }));
   }
 
   render() {

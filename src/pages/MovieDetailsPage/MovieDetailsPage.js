@@ -1,10 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import { NavLink, Route } from 'react-router-dom';
-import CastComponent from '../../components/Cast/Cast';
 import Container from '../../components/Container';
-import ReviewsComponent from '../../components/Reviews/Reviews';
+// import ReviewsComponent from '../../components/Reviews/Reviews';
 import routes from '../../routes/routes';
 import moviesApi from '../../services/moviesApi';
+
+const CastComponent = lazy(() =>
+  import('../../components/Cast/Cast' /* webpackChunkName: "cast-component" */),
+);
+
+const ReviewsComponent = lazy(() =>
+  import(
+    '../../components/Reviews/Reviews' /* webpackChunkName: "cast-component" */
+  ),
+);
 
 class MovieDetailsPage extends Component {
   state = {
@@ -98,11 +107,13 @@ class MovieDetailsPage extends Component {
             </li>
           </ul>
           <Container>
-            <Route path={`${match.path}/cast`} component={CastComponent} />
-            <Route
-              path={`${match.path}/reviews`}
-              component={ReviewsComponent}
-            />
+            <Suspense fallback={<h2>Wait...</h2>}>
+              <Route path={`${match.path}/cast`} component={CastComponent} />
+              <Route
+                path={`${match.path}/reviews`}
+                component={ReviewsComponent}
+              />
+            </Suspense>
           </Container>
         </section>
       </>

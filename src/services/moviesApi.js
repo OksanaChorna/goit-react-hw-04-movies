@@ -1,39 +1,55 @@
 import axios from 'axios';
 
-const baseURL = 'https://api.themoviedb.org/3';
-const apiKey = '17f34524669c2658ba6f6a8fb0e96e0c';
+const BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = '17f34524669c2658ba6f6a8fb0e96e0c';
+
+axios.defaults.baseURL = BASE_URL;
+axios.defaults.params = {
+  api_key: API_KEY,
+};
+
+// const fetchTrendingMovies = () => {
+//   return axios
+//     .get('', { params: { movie, popular } })
+//     .then(({ data }) => data)
+//     .catch(error => error);
+// };
 
 const fetchTrendingMovies = () => {
-  return axios
-    .get(`${baseURL}/movie/popular?api_key=${apiKey}`)
-    .then(({ data }) => data)
-    .catch(error => error);
+  return (
+    axios
+      .get(`/movie/popular`)
+      // .then(({ data }) => {
+      //   console.log(data);
+      // })
+      .catch(error => error)
+  );
 };
 
 const fetchMovieDetails = movieId => {
   return axios
-    .get(`${baseURL}/movie/${movieId}?api_key=${apiKey}`)
+    .get(`/movie/${movieId}`)
     .then(({ data }) => data)
     .catch(error => error);
 };
 
 const fetchMovieCast = movieId => {
   return axios
-    .get(`${baseURL}/movie/${movieId}/credits?api_key=${apiKey}`)
+    .get(`/movie/${movieId}/credits`)
     .then(({ data }) => data)
     .catch(error => error);
 };
 
 const fetchMovieReviews = movieId => {
   return axios
-    .get(`${baseURL}/movie/${movieId}/reviews?api_key=${apiKey}`)
+    .get(`/movie/${movieId}/reviews`)
     .then(({ data }) => data)
     .catch(error => error);
 };
 
 const fetchSearchMovies = ({ searchQuery = '' }) => {
   return axios
-    .get(`${baseURL}/search/movie?query=${searchQuery}&api_key=${apiKey}`)
+    .get(`/search/movie?query=${searchQuery}`)
     .then(({ data }) => data)
     .catch(error => error);
 };
